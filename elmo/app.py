@@ -30,10 +30,11 @@ def decode(le,one_hot):
     dec = np.argmax(one_hot,axis=1)
     return le.inverse_transform(dec)
 def ELMoEmbedding(x):
+    elmo = hub.Module("https://tfhub.dev/google/elmo/3", trainable=True)
     return elmo(tf.squeeze(tf.cast(x, tf.string)), signature="default" ,as_dict = True)["default"]
 
 def model(message):
-    elmo = hub.Module("https://tfhub.dev/google/elmo/3", trainable=True)
+    
     data = pd.read_csv("spam.csv",encoding='latin-1')
     y = list(data['v1'])
     x = list(data['v2'])
@@ -75,8 +76,11 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
-    	message = request.form['message']
+        message = request.form['message']
         result = model(message)
+        print("hello")
+
+    	
         if result=='ham':
             my_prediction=1
         else:
