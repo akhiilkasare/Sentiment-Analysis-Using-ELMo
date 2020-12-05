@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+        <title>Spam Classification</title>
+        
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+		<script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap" rel="stylesheet">
+	</head>
+
+	<body>
+
+		<!-- Website Title -->
+    	<div class="container">
+            <h2 class='container-heading'><span class="heading_font">SMS </span>Spam Classifier</h2>
+            <div class='description'>
+    			<p>A simple web-app to analyze Spam SMS made using NLP and Flask</p>
+    		</div>
+    	</div>
+
+		<!-- Result -->
+		<div class="results">
+			{% if prediction==1 %}
+				<h1>Analysis: <span class='safe'>Great! This is a Non-Spam Message.</span></h1>
+				<img class="gif" src="{{ url_for('static', filename='ham.webp') }}" alt="Non-Spam Message">
+			{% elif prediction==0 %}
+				<h1>Analysis: <span class='danger'>Oops! This is a Spam Message.</span></h1>
+				<img class="gif" src="{{ url_for('static', filename='spam.webp') }}" alt="Spam Message">
+			{% endif %}
+		</div>
+
+		
+
+	</body>
+</html>
